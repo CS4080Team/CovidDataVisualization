@@ -1,18 +1,42 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
+import datetime
 
+#day of the week (yyyy-mm-dd) of data
 date=[]
+
+#total confirmed cases
 confirmedCases=[]
+
+#running total of number of deaths caused by covid
 deathsTotal=[]
+
+#running total of people that recovered from covid
 recovered=[]
+
+#total active cases
 activeCases=[]
+
+#new cases for that day
 newCases=[]
+
+#new deaths for that day
 newDeaths=[]
+
+#number of people who recovered that day
 newRecovered=[]
+
+#Deaths per 100 people
 deathsPer100 =[]
+
+#Recovered per 100 cases
 recoveredPer100=[]
+
+#Deaths per 100 people that recovered
 deathsPer100recovered=[]
+
+#Number of countries with an active case of covid
 numberCountries=[]
 
 def intializeDataSet():
@@ -34,7 +58,7 @@ def intializeDataSet():
             deathsPer100recovered.append(float(row[10]))
             numberCountries.append(int(row[11]))
 
-def scatterPlot():
+def DailyCasesVsDeaths():
     loc = np.arange(len(date))
     width=0.01
     fig,ax= plt.subplots()
@@ -46,22 +70,44 @@ def scatterPlot():
     ax.legend()
     plt.show()
 
-    deathsPerCase=[]
-    for i in range(0, len(date)):
-        if newDeaths[i] != 0 and newCases[i] != 0:
-            deathsPerCase.append(newDeaths[i] / newCases[i])
+def CovidAnalysisByDaysOftheWeek():
+    weekdaysCases = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
+    weekdaysDeaths = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
+    totalDays = {0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0}
+    for i in range(len(date)):
+        components = date[i].split('-')
+        year, month, day = int(components[0]), int(components[1]), int(components[2])
+        my_date = datetime.date(year, month, day)
+        day_of_week = my_date.weekday()
+        weekdaysCases[day_of_week] += newCases[i]
+        weekdaysDeaths[day_of_week] += newDeaths[i]
+        totalDays[day_of_week] +=1
+    avgPerDayCases = {"Monday":0, "Tuesday":0, "Wednesday:":0, "Thursday":0, "Friday":0, "Saturday":0,"Sunday":0}
+    avgPerDayDeaths = {"Monday": 0, "Tuesday": 0, "Wednesday:": 0, "Thursday": 0, "Friday": 0, "Saturday": 0,
+                      "Sunday": 0}
+    i=0
+    for day in avgPerDayDeaths:
+        avgPerDayDeaths[day] = int(weekdaysDeaths[i]/totalDays[i])
+        i+=1
+    i = 0
+    for day in avgPerDayCases:
+        avgPerDayCases[day] = int(weekdaysCases[i] / totalDays[i])
+        i += 1
+    daysCases = list(avgPerDayCases.keys())
+    avgCases = list(avgPerDayCases.values())
+    avgDeaths = list(avgPerDayDeaths.values())
 
-    loc = np.arange(len(deathsPerCase))
-    width=.5
-    fig, ax = plt.subplots()
-    plt3 = ax.bar(loc-width, deathsPerCase, label='Deaths per case')
-    ax.set_ylabel('Deaths')
-    ax.set_xlabel('Days since first case')
-    ax.set_xticks(np.arange(0, len(date), 30))
-    ax.legend()
+    fig = plt.figure(figsize=(10,10))
+    plt.bar(daysCases,avgCases, color="Green", width=0.8, edgecolor='Black', linewidth=1)
+    plt.bar(daysCases,avgDeaths, color="Red", width=0.8, edgecolor='Black', linewidth=2)
+    plt.ylabel("Covid Cases")
+    plt.xlabel("Days of the week")
+    plt.legend(["Cases", "Deaths"])
+    plt.title("Avg cases by day of the week (Jan 21, 2020 - July 26, 2020)")
     plt.show()
 
 
 if __name__ == "__main__":
     intializeDataSet()
-    scatterPlot()
+    DailyCasesVsDeaths()
+    CovidAnalysisByDaysOftheWeek()

@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pandas as pd
 import datetime
+import statistics
 
 #day of the week (yyyy-mm-dd) of data
 date=[]
@@ -105,9 +106,67 @@ def CovidAnalysisByDaysOftheWeek():
     plt.legend(["Cases", "Deaths"])
     plt.title("Avg cases by day of the week (Jan 21, 2020 - July 26, 2020)")
     plt.show()
+    
+def numberFormat(dataValue,indx):
+    if dataValue >= 1000000 :
+        formatter = '{:1.1f}M'.format(dataValue*0.000001)
+    else:
+        formatter = '{:1.0f}K'.format(dataValue*0.001)
+    return formatter
+def twoFigure_Death_Case():
+     #create two figure
+    fig, (ax1, ax2) = plt.subplots(2)
+    fig.subplots_adjust(top=0.8)
+   
+    #plot confirmed cases
+    ax2.plot(date, confirmedCases , color='r', marker='.')
+
+    #xy ticks
+    ax2.set_xticks(np.arange(0, 188, 30))
+    ax2.set_yticks(np.arange(0,max(confirmedCases)+1,1000000))
+    ax2.yaxis.set_major_formatter(numberFormat)
+    
+
+    #label title ax2
+    ax2.set_xlabel('Date')
+    ax2.set_ylabel('Number of Cases')
+    ax2.set_title('Total COVID19 Cases Over Time')
+
+    #bar settings
+    #mean
+    mean = statistics.mean(newDeaths)
+
+    #mean line
+    ax1.axhline(mean, color='r', linestyle=(0,(1,1)))
+
+    #plot bar
+    ax1.bar( date, newDeaths, color='y')
+    
+    #format y axis
+    ax1.yaxis.set_major_formatter(numberFormat)
+
+    #xy ticks
+    ax1.set_yticks(np.arange(0,max(newDeaths)+1,1000))
+    ax1.set_xticks(np.arange(0,188,30))
+
+    #label title ax1
+    ax1.set_ylabel('Number of New Deaths')
+    ax1.set_xlabel('Date')
+    ax1.set_title('New Deaths')
+    
+    #annotation
+    ax1.annotate('mean = 3478.8',xy=(10,3500),xytext=(10,3600))
+    #grid
+    plt.grid(True)
+
+    #show plot
+    plt.tight_layout()
+    plt.show()
+
 
 
 if __name__ == "__main__":
     intializeDataSet()
     DailyCasesVsDeaths()
     CovidAnalysisByDaysOftheWeek()
+    twoFigure_Death_Case()

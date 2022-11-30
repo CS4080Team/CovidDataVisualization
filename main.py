@@ -117,7 +117,7 @@ def twoFigure_Death_Case():
      #create two figure
     fig, (ax1, ax2) = plt.subplots(2)
     fig.subplots_adjust(top=0.8)
-   
+    plt.tight_layout()
     #plot confirmed cases
     ax2.plot(date, confirmedCases , color='r', marker='.')
 
@@ -160,7 +160,6 @@ def twoFigure_Death_Case():
     plt.grid(True)
 
     #show plot
-    plt.tight_layout()
     plt.show()
 
 

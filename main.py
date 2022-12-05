@@ -104,7 +104,7 @@ def CovidAnalysisByDaysOftheWeek():
     plt.ylabel("Covid Cases")
     plt.xlabel("Days of the week")
     plt.legend(["Cases", "Deaths"])
-    plt.title("Avg cases by day of the week (Jan 21, 2020 - July 26, 2020)")
+    plt.title("Avg cases by day of the week (Jan 22, 2020 - July 27, 2020)")
     plt.show()
     
 def numberFormat(dataValue,indx):

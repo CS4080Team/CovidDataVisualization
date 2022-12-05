@@ -163,9 +163,30 @@ def twoFigure_Death_Case():
     plt.show()
 
 
+def DailyCasesVsRecovered():
+    loc = np.arange(len(date))
+
+    pd1 = pd.Series(newCases, name="Daily Cases")
+    pd2 = pd.Series(newRecovered, name="Daily Recoveries")
+    # pd3=pd.Series(newDeaths,name="Daily Deaths")
+
+    pd1.plot(legend=True)
+    # pd3.plot(legend=True)
+    pd2.plot(title="Daily Cases vs Recoveries", legend=True, xlabel="Days", ylabel="Cases")
+
+    for i in range(0, len(newCases), 25):
+        plt.text(loc[i] - 0.1, 0, newCases[i] - newRecovered[i])
+
+    plt.fill_between(loc, newCases, newRecovered, color="grey", alpha=0.3)
+    fig = plt.figure(figsize=(15, 15))
+
+    plt.show()
+
+
 
 if __name__ == "__main__":
     intializeDataSet()
     DailyCasesVsDeaths()
     CovidAnalysisByDaysOftheWeek()
     twoFigure_Death_Case()
+    DailyCasesVsRecovered()

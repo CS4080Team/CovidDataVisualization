@@ -194,7 +194,7 @@ def NewCasesVsNewDeaths():
     pd2.plot(title="New Cases vs. New Deaths", legend=True, xlabel="Days Since First Case", ylabel="People")
 
     # modify x and y axes
-    plt.xticks(np.arange(0, len(date), 30))
+    plt.xticks(np.arange(0, len(date), 15))
     plt.yscale("log")
 
     # fill in the area between the two lines

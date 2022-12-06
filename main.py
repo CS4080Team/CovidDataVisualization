@@ -182,10 +182,7 @@ def DailyCasesVsRecovered():
     plt.show()
 
 def DailyCasesRecoveriesAndDeaths():
-    # x-axis
-    loc = np.arange(len(date))
-
-    # y-axis
+    # specify datasets to plot
     pd1 = pd.Series(newCases, name="Cases")
     pd2 = pd.Series(newRecovered, name="Recoveries")
     pd3 = pd.Series(newDeaths, name="Deaths")
@@ -195,8 +192,10 @@ def DailyCasesRecoveriesAndDeaths():
     pd2.plot(legend=True)
     pd3.plot(title="Daily Cases, Recoveries, and Deaths", legend=True, xlabel="Days Since First Case", ylabel="People")
 
-    # modify x and y axes
+    # set x-axis tick interval to 15 days
     plt.xticks(np.arange(0, len(date), 15))
+
+    # use logarithmic scale for y-axis
     plt.yscale("log")
 
     # show the plot

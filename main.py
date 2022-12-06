@@ -178,7 +178,6 @@ def DailyCasesVsRecovered():
         plt.text(loc[i] - 0.1, 0, newCases[i] - newRecovered[i])
 
     plt.fill_between(loc, newCases, newRecovered, color="grey", alpha=0.3)
-    fig = plt.figure(figsize=(15, 15))
 
     plt.show()
 

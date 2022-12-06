@@ -181,24 +181,23 @@ def DailyCasesVsRecovered():
 
     plt.show()
 
-def NewCasesVsNewDeaths():
+def DailyCasesRecoveriesAndDeaths():
     # x-axis
     loc = np.arange(len(date))
 
     # y-axis
-    pd1 = pd.Series(newCases, name="New Cases")
-    pd2 = pd.Series(newDeaths, name="New Deaths")
+    pd1 = pd.Series(newCases, name="Cases")
+    pd2 = pd.Series(newRecovered, name="Recoveries")
+    pd3 = pd.Series(newDeaths, name="Deaths")
 
     # plot the data
     pd1.plot(legend=True)
-    pd2.plot(title="New Cases vs. New Deaths", legend=True, xlabel="Days Since First Case", ylabel="People")
+    pd2.plot(legend=True)
+    pd3.plot(title="Daily Cases, Recoveries, and Deaths", legend=True, xlabel="Days Since First Case", ylabel="People")
 
     # modify x and y axes
     plt.xticks(np.arange(0, len(date), 15))
     plt.yscale("log")
-
-    # fill in the area between the two lines
-    plt.fill_between(loc, newCases, newDeaths, color="grey", alpha=0.3)
 
     # show the plot
     plt.show()
@@ -206,8 +205,8 @@ def NewCasesVsNewDeaths():
 
 if __name__ == "__main__":
     intializeDataSet()
-    DailyCasesVsDeaths()
-    CovidAnalysisByDaysOftheWeek()
-    twoFigure_Death_Case()
-    DailyCasesVsRecovered()
-    NewCasesVsNewDeaths()
+    # DailyCasesVsDeaths()
+    # CovidAnalysisByDaysOftheWeek()
+    # twoFigure_Death_Case()
+    # DailyCasesVsRecovered()
+    DailyCasesRecoveriesAndDeaths()

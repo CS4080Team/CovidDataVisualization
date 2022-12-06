@@ -205,8 +205,8 @@ def DailyCasesRecoveriesAndDeaths():
 
 if __name__ == "__main__":
     intializeDataSet()
-    # DailyCasesVsDeaths()
-    # CovidAnalysisByDaysOftheWeek()
-    # twoFigure_Death_Case()
-    # DailyCasesVsRecovered()
+    DailyCasesVsDeaths()
+    CovidAnalysisByDaysOftheWeek()
+    twoFigure_Death_Case()
+    DailyCasesVsRecovered()
     DailyCasesRecoveriesAndDeaths()

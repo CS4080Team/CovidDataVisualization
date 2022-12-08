@@ -1,8 +1,7 @@
 # CovidDataVisualization
 This python project is a visual demonstration of the spread of the Covid-19 pandemic over the time frame
 of Jan 22, 2020 to July 27, 2020. We decided to use python for its many libaries that are useful and easy to use 
-for data science and visualization. This includes matplotlib for drawing the graphs, then numpy, pandas and statistics for mathematical
-operations, analyis and data manipulation.
+for data science and visualization. This includes matplotlib for drawing the graphs, then numpy, pandas and statistics for mathematical operations, analysis and data manipulation.
 
 ## Covid-19 dataset
 We used a dataset that can be found here https://www.kaggle.com/datasets/imdevskp/corona-virus-report from kaggle.com.
